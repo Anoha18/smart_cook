@@ -1,43 +1,31 @@
 
 import HomePage from '../pages/home.vue';
-import AboutPage from '../pages/about.vue';
 import FormPage from '../pages/form.vue';
+import LikedRecipes from '../pages/liked-recipes.vue'
 
 import LeftPage1 from '../pages/left-page-1.vue';
 import LeftPage2 from '../pages/left-page-2.vue';
 import DynamicRoutePage from '../pages/dynamic-route.vue';
 import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
+import ThemePage from '../pages/settings/theme.vue';
 
 var routes = [
-  {
-    path: '/',
-    component: HomePage,
-  },
-  {
-    path: '/about/',
-    component: AboutPage,
-  },
-  {
-    path: '/form/',
-    component: FormPage,
-  },
+  { path: '/', component: HomePage },
+  
+  { path: '/liked-recipes/', component: LikedRecipes },
+  
+  { path: '/settings/theme/', component: ThemePage},
+  
+  { path: '/form/', component: FormPage },
 
-  {
-    path: '/left-page-1/',
-    component: LeftPage1,
-  },
-  {
-    path: '/left-page-2/',
-    component: LeftPage2,
-  },
-  {
-    path: '/dynamic-route/blog/:blogId/post/:postId/',
-    component: DynamicRoutePage,
-  },
-  {
-    path: '/request-and-load/user/:userId/',
-    async: function (routeTo, routeFrom, resolve, reject) {
+  { path: '/left-page-1/', component: LeftPage1 },
+  
+  { path: '/left-page-2/', component: LeftPage2 },
+
+  { path: '/dynamic-route/blog/:blogId/post/:postId/', component: DynamicRoutePage },
+  
+  { path: '/request-and-load/user/:userId/', async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
 
@@ -85,10 +73,8 @@ var routes = [
       }, 1000);
     },
   },
-  {
-    path: '(.*)',
-    component: NotFoundPage,
-  },
+
+  { path: '(.*)', component: NotFoundPage },
 ];
 
 export default routes;
