@@ -2,7 +2,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
 } = require('graphql');
-const getUser = require('./resolvers/getUser');
+// const getUser = require('./resolvers/User/getUser');
+const resolvers = require('./resolvers');
 
 const queryType = new GraphQLObjectType({
   name: 'Query',
@@ -14,7 +15,7 @@ const queryType = new GraphQLObjectType({
         return 'Hello world'
       }
     },
-    user: getUser,
+    ...resolvers
   }
 })
 
