@@ -1,13 +1,10 @@
-const {GraphQLSchema} = require('graphql');
-const graphqlHTTP = require('express-graphql');
-
-const {queryType} = require('../graphQL');
-
-const schema = new GraphQLSchema({ query: queryType });
+const bodyParser = require('body-parser')
+const graphql = require('./graphql')
+const auth = require('./auth')
 
 module.exports = (app) => {
-  app.use('/api', graphqlHTTP({
-    schema,
-    graphiql: true,
-  }))
+  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.json());
+  auth(app);
+  graphql(app);
 }

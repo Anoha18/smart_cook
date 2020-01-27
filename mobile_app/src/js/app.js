@@ -17,6 +17,8 @@ import '../css/app.scss';
 // Import App Component
 import App from '../components/app.vue';
 
+import store from '../store/';
+
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
 
@@ -24,6 +26,7 @@ Framework7.use(Framework7Vue);
 new Vue({
   el: '#app',
   render: (h) => h(App),
+  store,
 
   // Register App Component
   components: {
