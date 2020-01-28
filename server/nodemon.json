@@ -1,0 +1,21 @@
+{
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "restartable": "rs",
+    "verbose": true,
+    "execMap": {
+      "ts": "node --require ts-node/register"
+    },
+    "watch": [
+      "graphQL/",
+      "middleware/",
+      "db/",
+      "*"
+    ],
+    "exec": "ts-node",
+    "ext": "js,json,ts"
+}

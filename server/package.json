@@ -10,21 +10,16 @@
   "author": "Vladislav & Sergei",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^13.5.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    "graphql": "^14.5.8"
-=======
     "graphql": "^14.5.8",
     "jsonwebtoken": "^8.5.1",
+    "pg": "^7.17.1",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.6.2",
     "typeorm": "^0.2.22"
->>>>>>> Stashed changes
-=======
-    "graphql": "^14.5.8",
-    "jsonwebtoken": "^8.5.1"
->>>>>>> master
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
