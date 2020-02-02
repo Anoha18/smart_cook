@@ -5,6 +5,7 @@
         <f7-tab id="tab-1"></f7-tab>
         <f7-tab id="tab-2"></f7-tab>
         <f7-tab id="tab-3"></f7-tab>
+        <f7-tab id="tab-4"></f7-tab>
       </f7-tabs>
       <f7-toolbar tabbar bottom>
         <f7-link
@@ -27,9 +28,12 @@
           tab-link="#tab-3"
           route-tab-id="tab-3"
         />
-        <!-- <f7-link 
+        <f7-link 
+          href="/archive/"
           icon-f7="tray_full_fill"
-        /> -->
+          tab-link="#tab-4"
+          route-tab-id="tab-3"
+        />
       </f7-toolbar>
     </f7-view>
     <left-panel />
@@ -39,6 +43,7 @@
   import cordovaApp from '../js/cordova-app.js';
   import routes from '../js/routes.js';
   import LeftPanel from './LeftPanel.vue';
+import { mapActions } from 'vuex';
 
   export default {
     components: {
@@ -63,6 +68,14 @@
           },
         },
       }
+    },
+    async created() {
+      await this.getUser(2);
+    },
+    methods: {
+      ...mapActions([
+        'getUser'
+      ])
     },
     mounted() {
       this.$f7ready((f7) => {

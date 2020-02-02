@@ -1,15 +1,41 @@
 <script>
+import { mapState, mapActions } from 'vuex';
 import CardRecipe from '../components/CardRecipe.vue';
 
 export default {
+  data() {
+    return {
+      text: null
+      // card: [],
+    }
+  },
   components: {
-    CardRecipe
+    AppCardRecipe: CardRecipe,
+  },
+  computed: {
+    ...mapState([
+      'card'
+    ])
+  },
+  created() {
+    // debugger
+  },
+  mounted() {
+    // debugger
   },
   methods: {
+    ...mapActions([
+      'addCard',
+      'getToken'
+    ]),
     reloadRecipe(done) {
       setTimeout(() => {
         done();
       }, 2000)
+    },
+
+    newCard() {
+      this.addCard(1);
     }
   },
 }
@@ -25,8 +51,10 @@ export default {
       <f7-nav-right>
       </f7-nav-right>
     </f7-navbar>
-   
-    <card-recipe v-for="(item, index) in 5" :key="index"/>
+    <input v-model="text" type="text">
+    <f7-button @click="newCard">Добавить карточку</f7-button>
+    <f7-button @click="getToken">Добавить токен</f7-button>
+    <app-card-recipe v-for="(item, index) in card" :key="index"/>
 
   </f7-page>
 </template>

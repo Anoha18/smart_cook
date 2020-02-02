@@ -19,7 +19,7 @@ export default {
         </f7-navbar>
         <!-- <f7-block-title>Left View Navigation</f7-block-title> -->
         <f7-list>
-          <f7-list-item link="#" title="Профиль"></f7-list-item>
+          <f7-list-item link="/profile/" panel-close view=".view-main" title="Профиль"></f7-list-item>
           <!-- <f7-list-item link="/left-page-2/" title="Left Page 2"></f7-list-item> -->
         </f7-list>
         <f7-block-title>Настройки</f7-block-title>
