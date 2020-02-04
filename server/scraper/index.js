@@ -3,13 +3,15 @@ const puppeteer = require('puppeteer');
 // const url = 'https://www.povarenok.ru/recipes/search/?ing=1';
 
 const loadBrowser = async (url, params) => {
-  const browser = await puppeteer.launch({headless: false});
+  const browser = await puppeteer.launch({
+    headless: false,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
 
   try {
     const page = await browser.newPage();
   
     await page.goto(url, {
-      // waitUntil: 'load',
       timeout: 0,
       waitUntil: 'networkidle2'
     });
@@ -23,22 +25,45 @@ const loadBrowser = async (url, params) => {
       await page.type('#es_input_cats_add', params.ingredients[+index]);
       await page.waitFor(500);
 
-      const el = await page.evaluateHandle(() => {
-        console.log(params);
+      const el = await page.evaluateHandle((ingredient) => {
         const elements = document.querySelectorAll('.ui-menu-item');
         let findEl;
-
-        for (const element of elements) {
-          if (element.innerText.toLowerCase() == params.ingredients[+index].toLowerCase()) {
-            findEl = element
+        
+        if (elements.length > 1) {
+          for (const element of elements) {
+            if (element.innerText.toLowerCase() == ingredient.toLowerCase()) {
+              findEl = element
+            }
           }
+        } else if (elements.length == 1) {
+          findEl = elements[0];
+        } else {
+          findEl = null;
         }
 
+
         return findEl;
-      }, params);
+      }, params.ingredients[+index]);
   
+      if (!el) {
+        continue;
+      }
+
       await el.click();
     }
+
+    await (await page.$('#exs_sostav_no > div.b-box > button')).click();
+
+    await page.waitForNavigation({timeout: 0});
+
+    const recipes = await page.evaluateHandle(() => {
+      // elements = document.querySelectorAll('#cooking_list > div.cooking-block > div > div > a');
+      elements = document.querySelectorAll('.anonce-cont-side');
+
+      return elements;
+    });
+    console.log(recipes);
+    // const hrefs = await recipes.
 
     setInterval(async () => {
       await browser.close();
@@ -46,7 +71,7 @@ const loadBrowser = async (url, params) => {
   } catch (error) {
     console.error(error);
 
-    // await browser.close();
+    await browser.close();
   }
 };
 
