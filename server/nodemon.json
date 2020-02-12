@@ -3,7 +3,8 @@
       "**/*.test.ts",
       "**/*.spec.ts",
       ".git",
-      "node_modules"
+      "node_modules",
+      "graphQL/models"
     ],
     "restartable": "rs",
     "verbose": true,
@@ -11,11 +12,8 @@
       "ts": "node --require ts-node/register"
     },
     "watch": [
-      "graphQL/",
-      "middleware/",
-      "db/",
       "*"
     ],
-    "exec": "ts-node",
+    "exec": "npm run build_ts && node",
     "ext": "js,json,ts"
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 require('reflect-metadata');
-// require('./db');
+require('./db');
 
 const PORT = 3000;
 const HOST = '0.0.0.0'

@@ -6,11 +6,11 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "outDir": "dist",
+    "outDir": "graphQL/models",
     "sourceMap": true
   },
   "include": [
-    "graphQL/**/*.ts"
+    "graphQL/models_ts/*.ts"
   ],
   "exclude": [
     "node_modules",
