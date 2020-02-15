@@ -1,12 +1,16 @@
 const {GraphQLSchema} = require('graphql');
 const graphqlHTTP = require('express-graphql');
 
-const {queryType} = require('../graphQL');
+const query = require('../graphQL/resolvers')
+const mutation = require('../graphQL/mutations');
 
-const schema = new GraphQLSchema({ query: queryType });
+const schema = new GraphQLSchema({
+  query,
+  mutation
+});
 
 module.exports = (app) => {
-  app.use('/api', graphqlHTTP({
+  app.use('/graphql_api', graphqlHTTP({
     schema,
     graphiql: true,
   }))

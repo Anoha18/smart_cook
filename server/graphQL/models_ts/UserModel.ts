@@ -1,24 +1,25 @@
-const { Entity, Column, PrimaryGeneratedColumn } = require('typeorm');
+// import {Entity, Column, PrimaryColumn} from 'typeorm';
+import t = require('typeorm')
 
-@Entity('t_user')
+@t.Entity('t_user')
 class UserModel {
-  @PrimaryGeneratedColumn()
+  @t.PrimaryColumn()
   user_id: number;
 
-  @Column()
+  @t.Column()
   name: string;
 
-  @Column()
+  @t.Column()
   lastname: string;
 
-  @Column()
+  @t.Column()
   phone: string;
 
-  @Column()
+  @t.Column()
   email: string;
 
-  @Column()
+  @t.Column()
   deleted: boolean
 };
 
-module.exports = UserModel;
+export = UserModel;
