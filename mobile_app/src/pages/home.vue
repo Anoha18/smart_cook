@@ -26,7 +26,8 @@ export default {
   methods: {
     ...mapActions([
       'addCard',
-      'getToken'
+      'getToken',
+      'getUser'
     ]),
     reloadRecipe(done) {
       setTimeout(() => {
@@ -36,6 +37,10 @@ export default {
 
     newCard() {
       this.addCard(1);
+    },
+
+    async get() {
+      await this.getUser(2);
     }
   },
 }
@@ -53,7 +58,7 @@ export default {
     </f7-navbar>
     <input v-model="text" type="text">
     <f7-button @click="newCard">Добавить карточку</f7-button>
-    <f7-button @click="getToken">Добавить токен</f7-button>
+    <f7-button @click="get">Добавить токен</f7-button>
     <app-card-recipe v-for="(item, index) in card" :key="index"/>
 
   </f7-page>

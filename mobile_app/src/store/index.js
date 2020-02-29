@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
+import gql from 'graphql-tag';
 
-import SettingsModule from './settings'
+import apollo from '../apollo/apolloClient';
+import SettingsModule from './settings';
 
 Vue.use(Vuex);
 
@@ -42,48 +44,43 @@ export default new Vuex.Store({
         },
 
         async getUser({ commit, dispatch }, userId) {
-            const query = `
-                {
-                    User(user_id: ${userId}) {
+            const params = {
+              query: gql`
+                query getUser($userId: Int!){
+                    user(user_id: $userId) {
                         name,
                         email,
                         lastname
                         }
                 }
-            `;
-
-            const res = await dispatch('fetch', query)
-
-            commit('setUser', res.data.User);
-        },
-
-        fetch({}, query) {
-            let data1 = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                        // TODO Здесь потом добавить 'authorization' с jwt
-                },
-                body: JSON.stringify({ query }),
+              `,
+              variables: {
+                userId
+              }
             }
 
-            return fetch(this.state.url, data1)
-                .then((response) => {
-                    if (!response.ok) {
-                        console.error(response);
+            const result = await dispatch('query', params)
 
-                        throw new Error('Fetch wrapper error');
-                    }
+            commit('setUser', result.user);
+        },
 
-                    const contentType = response.headers.get('content-type');
+        async query (_, { query, variables }) {
+          try {
+            const { data, errors } = await apollo.query({
+              query,
+              variables
+            });
 
-                    if (contentType && contentType.includes('application/json')) {
-                        return response.json();
-                    }
-
-                    return response.text();
-                })
-                .catch((error) => error);
+            if (errors) {
+              console.error(errors);
+              return null;
+            }
+      
+            return data;
+          } catch (error) {
+            console.error(error);
+            return null;
+          }
         }
     },
     getters: {

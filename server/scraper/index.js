@@ -41,7 +41,6 @@ const loadBrowser = async (url, params) => {
           findEl = null;
         }
 
-
         return findEl;
       }, params.ingredients[+index]);
   
@@ -56,13 +55,37 @@ const loadBrowser = async (url, params) => {
 
     await page.waitForNavigation({timeout: 0});
 
-    const recipes = await page.evaluateHandle(() => {
-      // elements = document.querySelectorAll('#cooking_list > div.cooking-block > div > div > a');
-      elements = document.querySelectorAll('.anonce-cont-side');
+    const namesRecipes = (await page.$('#cooking_list > div.cooking-block > div > div > a')).map(item => {
+      console.log(item);
+      return item.text;
+    })
+    console.log(namesRecipes);
+    // const recipes = await page.evaluateHandle(() => {
+    //   // elements = document.querySelectorAll('#cooking_list > div.cooking-block > div > div > a');
+    //   const elements = document.querySelectorAll('.anonce-cont-side');
+    //   const nameRecipes = [];
+    //   document.querySelectorAll('#cooking_list > div.cooking-block > div > div > a').forEach(item => {
+    //     nameRecipes.push(item.text)
+    //   });
+      
+    //   const links = document.querySelectorAll('#cooking_list > div.cooking-block > div > div > a');
 
-      return elements;
-    });
-    console.log(recipes);
+    //   const descriptions = [];
+    //   document.querySelectorAll('#cooking_list > div.cooking-block > div > div > div.anonce-cont-side-info > div').forEach(item => {
+    //     descriptions.push(item.innerText);
+    //   });
+
+    //   console.log('names: ', nameRecipes);
+    //   console.log('links: ', links);
+    //   console.log('descr: ', descriptions);
+    //   return {
+    //     elements,
+    //     nameRecipes,
+    //     links,
+    //     descriptions
+    //   };
+    // });
+    // console.log(recipes);
     // const hrefs = await recipes.
 
     setInterval(async () => {

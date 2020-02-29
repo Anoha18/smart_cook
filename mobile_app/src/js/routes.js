@@ -22,22 +22,22 @@ var routes = [
     {
         path: '/profile/',
         name: 'profile',
-        async: authMiddleware,
+        async: (routeTo, routeFrom, resolve, reject) => {
+            if (checkAuth()) {
+                resolve({component: ProfilePage});
+            }
+        },
     },
     // Новые роуты добавялять до роута error!
     { path: '(.*)', name: 'error', component: NotFoundPage },
 ];
 
-function authMiddleware(routeTo, routeFrom, resolve, reject) {
-    // Добавить редирект на логин по этому примеру
-    // if (store.getters.isToken) {
-    //     return resolve({ component: ProfilePage })
-    // }
+function checkAuth() {
+    if (store.getters.isToken) {
+        return true;
+    }
 
-    // return resolve({ component: LikedRecipes })
-    console.log(routeTo)
-    console.log(store.getters)
-    console.log(store.state)
+    return false;
 }
 
 export default routes;

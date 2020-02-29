@@ -69,14 +69,6 @@ import { mapActions } from 'vuex';
         },
       }
     },
-    async created() {
-      await this.getUser(2);
-    },
-    methods: {
-      ...mapActions([
-        'getUser'
-      ])
-    },
     mounted() {
       this.$f7ready((f7) => {
         // Init cordova APIs (see cordova-app.js)

@@ -1,8 +1,9 @@
-import {Entity, Column, PrimaryColumn} from 'typeorm';
+import t = require('typeorm');
 
-@Entity('t_item')
-export class RecipeModel {
-  @PrimaryColumn()
+@t.Entity('t_item')
+class RecipeModel {
+  @t.PrimaryColumn()
   item_id: number;
 };
 
+export = RecipeModel;
