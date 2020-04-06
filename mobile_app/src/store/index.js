@@ -33,12 +33,26 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        authorization_check({commit}){
+
+        },
+
         addCard({ commit, dispatch }, data) {
             commit('setCard', data);
         },
 
-        getToken({ commit }) {
+       async getToken({ commit,dispatch }) {
             commit('setToken', 123464);
+            const query = `
+                {
+                    Login(login: ${'vlad'},password:${'111111'}) {
+                        name,
+                        email,
+                        lastname
+                        }
+                }
+            `;
+            const res = await dispatch('fetch', query)
         },
 
         async getUser({ commit, dispatch }, userId) {
@@ -51,7 +65,7 @@ export default new Vuex.Store({
                         }
                 }
             `;
-
+            console.log(query);
             const res = await dispatch('fetch', query)
 
             commit('setUser', res.data.User);
